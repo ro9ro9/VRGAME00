@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TrashBagTrigger : MonoBehaviour
 {
     public int trashCount = 0;
     public int trashCountClear = 3;
-    public GameObject winMassage; // UI 메세지
+    public TMP_Text clearText;
+
+    private bool isCleared = false;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isCleared) return;
+
         if (other.CompareTag("Trash"))
         {
-            if(other.gameObject.GetComponent<TrashAlreadyCount>() == null)
+            if (other.gameObject.GetComponent<TrashAlreadyCount>() == null)
             {
                 trashCount++;
 
@@ -20,24 +25,27 @@ public class TrashBagTrigger : MonoBehaviour
 
                 Debug.Log($"현재까지 수집한 쓰레기 {trashCount}개");
 
-                if( trashCount >= trashCountClear)
+                if (trashCount >= trashCountClear)
                 {
-                    GameClear();
+                    StartCoroutine(ShowClearUI());
                 }
             }
         }
     }
 
-    void GameClear()
+    private IEnumerator ShowClearUI()
     {
-        Debug.Log("게임 클리어! 당신은 최고의 환경 미화원입니다!");
+        isCleared = true;
 
-        if(winMassage != null)
+        if (clearText != null)
         {
-            winMassage.SetActive(true);
+            clearText.text = "게임 클리어! 당신은 최고의 환경 미화원입니다!";
+            clearText.gameObject.SetActive(true);
         }
 
         Time.timeScale = 0f;
+
+        yield return null;
     }
 
     // 중복 감지 방지용 태그 스크립트

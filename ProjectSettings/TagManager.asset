@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - Stick
+  - Trash
   layers:
   - Default
   - TransparentFX

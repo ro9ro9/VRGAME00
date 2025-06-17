@@ -14,10 +14,10 @@ public class GrabTrash : MonoBehaviour
         if (leftTip.detectedTrash != null && leftTip.detectedTrash == rightTip.detectedTrash)
         {
             currentGrabTrash = leftTip.detectedTrash;
-            _GrabTrash(currentGrabTrash);
+            GrabTrash1(currentGrabTrash);
         }
     }
-    void _GrabTrash(GameObject trash)
+    void GrabTrash1(GameObject trash)
     {
         // 중앙 위치 계산
         Vector3 midPoint = (leftTip.transform.position + rightTip.transform.position) / 2f;
